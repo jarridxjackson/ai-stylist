@@ -1,0 +1,85 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jarridxjackson/stoit-sdk/main/schema/stoit.schema.json",
+  "stoit": "1",
+  "id": "ai-stylist",
+  "name": "Stylist",
+  "icon": "👗",
+  "tagline": "What to wear, decided in 30 seconds, from the clothes you already own.",
+  "url": "https://jarridxjackson.github.io/ai-stylist/",
+  "repo": "https://github.com/jarridxjackson/ai-stylist",
+  "version": "0.1.0",
+  "author": "jarridxjackson",
+  "pitch": {
+    "villain": {
+      "name": "The Closet Stare",
+      "emoji": "🫥",
+      "scene": "You're standing in front of a full closet, late again, holding the same three things. It's cold, you have a client pitch, and nothing feels right."
+    },
+    "whys": [
+      {
+        "q": "Why should I use this?",
+        "a": "Tell it where you're going and the weather, and it gives you three outfits from your own clothes, with the reasons behind each."
+      },
+      {
+        "q": "Why does that matter?",
+        "a": "Every morning decision costs focus you'd rather spend on the pitch, the date or the work."
+      },
+      {
+        "q": "Why is it still a problem?",
+        "a": "Style apps show you clothes to buy. You need help with the clothes you already have."
+      },
+      {
+        "q": "Why can't I just wing it?",
+        "a": "Winging it means the same outfit on repeat, the wrong layer for the weather, or showing up underdressed."
+      },
+      {
+        "q": "Why now?",
+        "a": "Add the ten things you wear most. Tomorrow morning is already decided."
+      }
+    ],
+    "save": {
+      "hours": 20,
+      "money": 150,
+      "basis": "About 10 minutes a day spent deciding, cut to under 1 (roughly 20 hours a year), plus one or two impulse buys a year you skip because it tells you exactly which piece is missing."
+    },
+    "howTo": [
+      "Tap the clothes you own (or add your own)",
+      "Say where you're going and how warm it is",
+      "Pick one of three outfits and hit Wear this"
+    ],
+    "bestFor": "Anyone who dresses for different rooms: work, clients, dates, the gym"
+  },
+  "helpsWith": {
+    "types": [
+      "action",
+      "timeblock",
+      "habit"
+    ],
+    "keywords": [
+      "outfit",
+      "wear",
+      "dress",
+      "clothes",
+      "style",
+      "date",
+      "dinner",
+      "interview",
+      "pitch",
+      "wedding",
+      "party",
+      "gym",
+      "travel",
+      "pack"
+    ]
+  },
+  "inputs": [
+    "task"
+  ],
+  "outputs": [
+    {
+      "type": "text",
+      "label": "Outfit"
+    }
+  ],
+  "privacy": "Your wardrobe stays on your device (browser storage). Nothing is uploaded."
+}

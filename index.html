@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Stylist</title>
+  <meta name="description" content="What to wear, decided in 30 seconds, from the clothes you already own." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👗</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Shown only when STOIT opened this tool for a task. -->
+  <aside class="stoit-bar" id="stoit-bar" hidden>
+    <span class="stoit-dot" aria-hidden="true"></span>
+    <div class="stoit-what">
+      <small>From <b id="stoit-from">STOIT</b></small>
+      <b id="stoit-task"></b>
+      <small id="stoit-when"></small>
+    </div>
+    <span class="stoit-clock" id="stoit-clock" hidden></span>
+  </aside>
+
+  <header class="top">
+    <span class="logo" id="logo" aria-hidden="true">👗</span>
+    <div>
+      <h1 id="name">Stylist</h1>
+      <p class="tagline" id="tagline"></p>
+    </div>
+  </header>
+
+  <main>
+    <!-- ─── Stylist ─── -->
+    <section class="card">
+      <label class="field">Where are you going?
+        <input id="occasion" maxlength="140" placeholder="e.g. Dinner with Maya, client pitch, morning run" autocomplete="off" />
+      </label>
+      <div class="chips" id="occ-chips" role="group" aria-label="Or pick one"></div>
+      <p class="code" id="code"></p>
+      <div class="row">
+        <label class="temp">How warm?
+          <span class="temp-in"><input id="temp" type="number" inputmode="numeric" min="-40" max="120" aria-label="Temperature" /><button type="button" class="btn unit" id="unit" aria-label="Switch °C / °F">°C</button></span>
+        </label>
+        <label class="toggle"><input type="checkbox" id="rain" /> <span>☔ Rain</span></label>
+      </div>
+      <div class="chips vibe" id="vibes" role="radiogroup" aria-label="Your style today"></div>
+    </section>
+
+    <section id="looks" aria-live="polite"></section>
+
+    <section class="card" id="add-next" hidden>
+      <h2>Worth adding</h2>
+      <ul class="plain" id="add-list"></ul>
+    </section>
+
+    <section class="card" id="starter" hidden>
+      <h2>Quick start: tap what you own</h2>
+      <p class="muted">Then you can add anything else. This stays on your device.</p>
+      <div class="starter" id="starter-grid"></div>
+      <div class="actions"><button class="btn primary" id="starter-go" disabled>Add 0 pieces</button></div>
+    </section>
+
+    <section class="card" id="wardrobe-card">
+      <h2>Your wardrobe <small class="muted" id="count"></small></h2>
+      <div id="wardrobe"></div>
+      <details class="add" id="add-details">
+        <summary class="btn">＋ Add a piece</summary>
+        <form id="add-form">
+          <label class="field">What is it?<input name="name" required maxlength="60" placeholder="e.g. green linen shirt" autocomplete="off" /></label>
+          <div class="grid">
+            <label class="field">Type<select name="cat" id="f-cat"></select></label>
+            <label class="field">How dressy?<select name="f" id="f-f"></select></label>
+            <label class="field">How warm?<select name="warmth"><option value="1">Light</option><option value="2">Medium</option><option value="3">Warm</option></select></label>
+          </div>
+          <fieldset class="swatches" id="f-color"><legend>Colour</legend></fieldset>
+          <div class="row tags">
+            <label class="toggle"><input type="checkbox" name="tags" value="waterproof" /> <span>Waterproof</span></label>
+            <label class="toggle"><input type="checkbox" name="tags" value="comfy" /> <span>Comfy</span></label>
+            <label class="toggle"><input type="checkbox" name="tags" value="suede" /> <span>Suede</span></label>
+          </div>
+          <div class="actions"><button class="btn primary">Add to wardrobe</button></div>
+        </form>
+      </details>
+    </section>
+
+    <section class="card" id="history-card" hidden>
+      <h2>Recently worn</h2>
+      <ol class="history" id="history"></ol>
+    </section>
+    <!-- ─── End of your tool. ─── -->
+  </main>
+
+  <footer class="foot">
+    <span>A <a href="https://github.com/jarridxjackson/stoit-sdk">STOIT tool</a>. Works on its own, plugs into STOIT.</span>
+    <a href="stoit.json">stoit.json</a>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="stoit-sdk.js"></script>
+  <script src="stylist.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+# Publishes the app to GitHub Pages on every push to main.
+# One-time setup: repo Settings → Pages → Source: "GitHub Actions".
+name: Publish to GitHub Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # Pages must be switched on once per repo (only the owner can): skip with a notice until it is.
+      - id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/${{ github.repository }}/pages")
+          if [ "$code" = "200" ]; then echo "on=true" >> "$GITHUB_OUTPUT"; else
+            echo "on=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=GitHub Pages is off::Turn it on once: Settings → Pages → Source: GitHub Actions. Then re-run this workflow (or push again) to publish."
+          fi
+      - if: steps.pages.outputs.on == 'true'
+        uses: actions/checkout@v4
+      - if: steps.pages.outputs.on == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - if: steps.pages.outputs.on == 'true'
+        run: npm test
+      # Publish only the app itself, not tests or scripts.
+      - if: steps.pages.outputs.on == 'true'
+        run: mkdir _site && cp -r index.html app.js styles.css stoit-sdk.js stoit.json _site/ && ([ -d assets ] && cp -r assets _site/ || true)
+      - if: steps.pages.outputs.on == 'true'
+        uses: actions/configure-pages@v5
+      - if: steps.pages.outputs.on == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - if: steps.pages.outputs.on == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
