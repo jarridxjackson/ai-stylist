@@ -37,9 +37,9 @@ jobs:
           node-version: 22
       - if: steps.pages.outputs.on == 'true'
         run: npm test
-      # Publish only the app itself, not tests or scripts.
+      # Publish the app itself (every file it uses), not tests or scripts. See scripts/site.js.
       - if: steps.pages.outputs.on == 'true'
-        run: mkdir _site && cp -r index.html app.js styles.css stoit-sdk.js stoit.json _site/ && ([ -d assets ] && cp -r assets _site/ || true)
+        run: node scripts/site.js _site
       - if: steps.pages.outputs.on == 'true'
         uses: actions/configure-pages@v5
       - if: steps.pages.outputs.on == 'true'

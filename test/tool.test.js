@@ -28,3 +28,12 @@ test('every `npm run …` the docs and scripts mention exists in package.json', 
     }
   }
 });
+
+test('GitHub Pages publishes every file the app uses, and none of the tests or scripts', () => {
+  const { siteFiles, missingRefs } = require('../scripts/site.js');
+  const root = path.join(__dirname, '..');
+  const files = siteFiles(root);
+  assert.deepEqual(missingRefs(root, files), [], 'a page links to a file that would not be published');
+  assert.ok(files.includes('index.html') && files.includes('stoit.json'));
+  assert.ok(!files.some((f) => /^(test|scripts|\.github)\//.test(f) || f === 'package.json' || f === 'README.md'));
+});
